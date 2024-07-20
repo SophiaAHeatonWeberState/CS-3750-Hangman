@@ -1,9 +1,8 @@
 import { Route, Routes } from "react-router-dom";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './styles.css';
 import Highscore from './Highscores';
 import RecordList from "./components/recordList";
-
 
 const words = ["react", "hangman", "javascript", "frontend"];
 
@@ -15,16 +14,19 @@ const App = () => {
   const [word, setWord] = useState(getRandomWord());
   const [guessedLetters, setGuessedLetters] = useState([]);
   const [wrongGuesses, setWrongGuesses] = useState(0);
+  const [incorrectLetters, setIncorrectLetters] = useState([]);
+  const [currentGuess, setCurrentGuess] = useState('');
   const [showHighscore, setShowHighscore] = useState(false);
   const maxWrongGuesses = 6;
 
   const handleGuess = (letter) => {
-    if (guessedLetters.includes(letter)) return;
+    if (guessedLetters.includes(letter) || incorrectLetters.includes(letter)) return;
 
-    setGuessedLetters([...guessedLetters, letter]);
-
-    if (!word.includes(letter)) {
+    if (word.includes(letter)) {
+      setGuessedLetters([...guessedLetters, letter]);
+    } else {
       setWrongGuesses(wrongGuesses + 1);
+      setIncorrectLetters([...incorrectLetters, letter]);
     }
   };
 
@@ -32,26 +34,26 @@ const App = () => {
     setWord(getRandomWord());
     setGuessedLetters([]);
     setWrongGuesses(0);
+    setIncorrectLetters([]);
+    setCurrentGuess('');
     setShowHighscore(false);
+  };
+
+  const handleInputChange = (e) => {
+    setCurrentGuess(e.target.value);
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && currentGuess.length === 1) {
+      handleGuess(currentGuess.toLowerCase());
+      setCurrentGuess('');
+    }
   };
 
   const renderWord = () => {
     return word.split('').map((letter, index) => (
       guessedLetters.includes(letter) ? letter : '_'
     )).join(' ');
-  };
-
-  const renderAlphabetButtons = () => {
-    const alphabet = 'abcdefghijklmnopqrstuvwxyz';
-    return alphabet.split('').map((letter) => (
-      <button
-        key={letter}
-        onClick={() => handleGuess(letter)}
-        disabled={guessedLetters.includes(letter) || wrongGuesses >= maxWrongGuesses}
-      >
-        {letter}
-      </button>
-    ));
   };
 
   const isGameOver = wrongGuesses >= maxWrongGuesses;
@@ -72,7 +74,14 @@ const App = () => {
       <h1>Hangman Game</h1>
       <p>Word: {renderWord()}</p>
       <p>Wrong guesses: {wrongGuesses}</p>
-      <div>{renderAlphabetButtons()}</div>
+      <p>Incorrect letters: {incorrectLetters.join(', ')}</p>
+      <input
+        type="text"
+        value={currentGuess}
+        onChange={handleInputChange}
+        onKeyPress={handleKeyPress}
+        maxLength="1"
+      />
       {isGameOver && <p>Game Over! The word was: {word}</p>}
       {isGameWon && <p>Congratulations! You've guessed the word!</p>}
       <button onClick={handleReset}>Reset Game</button>
