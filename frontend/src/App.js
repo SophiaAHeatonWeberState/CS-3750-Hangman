@@ -4,6 +4,11 @@ import './styles.css';
 import Highscore from './Highscores';
 import RecordList from "./components/recordList";
 
+// import all the sessions we need, using session_set as maybe our start page???
+import Session_Set from "./components/session_set.js";
+import Session_Delete from "./components/session_delete.js";
+
+
 const words = ["react", "hangman", "javascript", "frontend"];
 
 const getRandomWord = () => {
