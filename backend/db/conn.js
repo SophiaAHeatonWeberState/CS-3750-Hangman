@@ -23,8 +23,8 @@ module.exports = {
         await client.db("admin").command({ ping: 1 });
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
 
-        _db = client.db("employees");
-        console.log("Successful connection to employees collection.");
+        _db = client.db("Hangman");
+        console.log("Successful connection to Hangman collection.");
 
         callback(null);
       } catch (err) {

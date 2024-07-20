@@ -27,4 +27,6 @@ routes.route("/session_delete").get(async function (req, res) {
     res.json(resultObj);
 });
 
+routes.route("/")
+
 module.exports = routes;
