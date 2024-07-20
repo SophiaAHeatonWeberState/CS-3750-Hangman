@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-
+const session = require("express-session");
 const cors = require('cors');
 const dotenv = require('dotenv');
 
@@ -12,8 +12,32 @@ app.use(express.json());
 const dbo = require("./db/conn");
 
 app.use(require("./routes/data"));
+app.use(require("./routes/session"));
 
 const port = process.env.PORT;
+
+app.use(
+  cors({
+      origin: "http://localhost:3000",
+      methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+      credentials: true,
+      optionsSuccessStatus: 204,
+      allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
+// once sophie has the mongo side figured out this should work
+
+// app.use(session(
+//   {
+//       secret: 'keyboard cat',
+//       saveUninitialized: false, //dont create a session until something is stored
+//       resave: false, //dont save session if unmodified
+//       store: MongoStore.create({
+//           mongoUrl: process.env.ATLAS_URI
+//       })
+//   }
+// ));
 
 // Start the server after database connection
 dbo.connectToServer((err) => {
