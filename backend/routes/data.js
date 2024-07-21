@@ -70,15 +70,16 @@ recordRoutes.route("/session_end").get(async (req, res) => {
 /*
 recordRoutes.route("/highscores").get(async (req, res) => {
     try {
-      let db_connect = dbo.getDb();
-      const collection = db_connect.collection("Highscores");
-        console.log("TRIED TO GET ROUTE");
-      const highscores = await collection.find().sort({ score: -1 }).limit(10).toArray();
-      res.json(highscores);
+        let db_connect = dbo.getDb();
+        const collection = db_connect.collection("Highscores");
+
+        const highscore = await collection.find({}).toArray();
+        res.json(highscore);
+        console.log("Connected to db");
     } catch (err) {
-      res.status(500).json({ message: err.message });
+        res.status(500).json({ message: err.message });
     }
-  });
-  */
+});
+*/
 
 module.exports = recordRoutes;

@@ -12,25 +12,34 @@ const Highscores = (props) => (
  </tr>
 );
  
-export default function ScoreList() {
+export default function ScoreList({givenNumber}) {
  const [highscores, setScores] = useState([]);
- 
  // This method fetches the records from the database.
  useEffect(() => {
+<<<<<<< HEAD
    async function getScores() {
      const response = await fetch('http://localhost:5000/highscores/numLetters');
+=======
+   async function getScores(number) {
+     const response = await fetch('http://localhost:4000/highscores');
+>>>>>>> ed8577e6c0496361014334b1be560cc1ca3a4c0f
  
      if (!response.ok) {
        const message = `An error occurred: ${response.statusText}`;
        window.alert(message);
        return;
      }
- 
-     const highscores = await response.json();
+     
+     let highscores = await response.json();
+     highscores = highscores.filter(function (x) {
+      
+      return x.numLetters <= number && x.numLetters >= number &&
+             x.score >= 0 &&
+             x.player;
+     });
      setScores(highscores);
    }
- 
-   getScores();
+   getScores(givenNumber);
  
    return;
  }, [highscores.length]);

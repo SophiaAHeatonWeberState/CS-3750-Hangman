@@ -6,10 +6,6 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 
 dotenv.config({ path : "./config.env"});
-<<<<<<< HEAD
-=======
-
->>>>>>> ed8577e6c0496361014334b1be560cc1ca3a4c0f
 app.use(
   cors({
       origin: "http://localhost:3000",
