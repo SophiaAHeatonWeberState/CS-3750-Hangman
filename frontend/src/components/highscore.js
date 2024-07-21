@@ -8,7 +8,7 @@ const Highscore = ({ onReset }) => {
   useEffect(() => {
     const fetchHighscores = async () => {
       try {
-        const response = await fetch('http://localhost:4000/highscores/numLetters');
+        const response = await fetch('http://localhost:5000/highscores/numLetters');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

@@ -18,7 +18,7 @@ export default function ScoreList() {
  // This method fetches the records from the database.
  useEffect(() => {
    async function getScores() {
-     const response = await fetch('http://localhost:4000/highscores/numLetters');
+     const response = await fetch('http://localhost:5000/highscores/numLetters');
  
      if (!response.ok) {
        const message = `An error occurred: ${response.statusText}`;

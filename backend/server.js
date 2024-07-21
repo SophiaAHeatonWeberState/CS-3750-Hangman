@@ -1,19 +1,11 @@
 const express = require('express');
 const app = express();
 const session = require("express-session");
+//const MongoStore = require("connect-mongo");
 const cors = require('cors');
 const dotenv = require('dotenv');
 
 dotenv.config({ path : "./config.env"});
-app.use(express.json());
-
-const dbo = require("./db/conn");
-
-app.use(require("./routes/data"));
-app.use(require("./routes/session"));
-
-const port = process.env.PORT;
-
 app.use(
   cors({
       origin: "http://localhost:3000",
@@ -23,6 +15,16 @@ app.use(
       allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
+const dbo = require("./db/conn");
+
+app.use(express.json());
+
+app.use(require("./routes/data"));
+app.use(require("./routes/session"));
+
+const port = process.env.PORT;
+
 
 // once sophie has the mongo side figured out this should work
 

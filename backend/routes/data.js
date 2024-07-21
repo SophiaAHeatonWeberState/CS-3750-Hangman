@@ -11,6 +11,7 @@ const ObjectId = require("mongodb").ObjectId;
 
 // here is the start of the session plus username setting
 recordRoutes.route("/session_start").post(async (req, res) => {
+    console.log("attempting to start session")
     try{
         const name = req.body.name;
     if (!name) {
@@ -20,19 +21,9 @@ recordRoutes.route("/session_start").post(async (req, res) => {
     res.status(200).json("username has been set to session.");
     }
 	catch (err) {
-        throw err;
+        return res.status(301).json("Error starting the game " + err);
         }   
 });
-
-// here is the deletion of the session
-recordRoutes.route("/session_end").get(async (req, res) => {
-	req.session.destroy();
-	let status = "session destroyed";
-	const resultObj = { status: status };
-	res.json(resultObj);
-});
-
-
 
 recordRoutes.route("/random-word").get(async (req, res) => {
     try {
@@ -66,7 +57,17 @@ recordRoutes.route("/highscores/numLetters").get(async (req, res) => {
     catch (err) {
         throw err;
     }
-});/*
+});
+
+// here is the deletion of the session
+recordRoutes.route("/session_end").get(async (req, res) => {
+	req.session.destroy();
+	let status = "session destroyed";
+	const resultObj = { status: status };
+	res.json(resultObj);
+});
+
+/*
 recordRoutes.route("/highscores").get(async (req, res) => {
     try {
       let db_connect = dbo.getDb();

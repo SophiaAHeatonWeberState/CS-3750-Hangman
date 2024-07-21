@@ -18,7 +18,7 @@ const Hangman = () => {
   useEffect(() => {
     const fetchRandomWord = async () => {
       try {
-        const response = await fetch('http://localhost:4000/random-word');
+        const response = await fetch('http://localhost:5000/random-word');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -73,7 +73,7 @@ const Hangman = () => {
     setIsGameWon(false);
     const fetchRandomWord = async () => {
       try {
-        const response = await fetch('http://localhost:4000/random-word');
+        const response = await fetch('http://localhost:5000/random-word');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
