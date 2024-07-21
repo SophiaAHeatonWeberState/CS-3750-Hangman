@@ -16,26 +16,15 @@ app.use(
   })
 );
 
-<<<<<<< HEAD
 const dbo = require("./db/conn");
 
 app.use(express.json());
 
-=======
-app.use(express.json());
-
-const dbo = require("./db/conn");
-
->>>>>>> ed8577e6c0496361014334b1be560cc1ca3a4c0f
 app.use(require("./routes/data"));
 app.use(require("./routes/session"));
 
 const port = process.env.PORT;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> ed8577e6c0496361014334b1be560cc1ca3a4c0f
 // once sophie has the mongo side figured out this should work
 
 // app.use(session(

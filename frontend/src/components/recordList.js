@@ -16,13 +16,8 @@ export default function ScoreList({givenNumber}) {
  const [highscores, setScores] = useState([]);
  // This method fetches the records from the database.
  useEffect(() => {
-<<<<<<< HEAD
-   async function getScores() {
-     const response = await fetch('http://localhost:5000/highscores/numLetters');
-=======
    async function getScores(number) {
-     const response = await fetch('http://localhost:4000/highscores');
->>>>>>> ed8577e6c0496361014334b1be560cc1ca3a4c0f
+     const response = await fetch('http://localhost:5000/highscores');
  
      if (!response.ok) {
        const message = `An error occurred: ${response.statusText}`;
