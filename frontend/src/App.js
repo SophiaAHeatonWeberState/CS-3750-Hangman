@@ -4,8 +4,9 @@ import './styles.css';
 import Highscore from './Highscores';
 import RecordList from "./components/recordList";
 
-// import all the sessions we need, using session_start as maybe our start page??? YES
-import Session_Start from "./components/session_start.js";
+// import all the sessions we need, using session_set as maybe our start page???
+import Session_Set from "./components/session_set.js";
+import Session_Delete from "./components/session_delete.js";
 
 
 const words = ["react", "hangman", "javascript", "frontend"];
@@ -15,13 +16,52 @@ const getRandomWord = () => {
 };
 
 const App = () => {
-  const [word, setWord] = useState(getRandomWord());
+  const [word, setWord] = useState('');
   const [guessedLetters, setGuessedLetters] = useState([]);
   const [wrongGuesses, setWrongGuesses] = useState(0);
   const [incorrectLetters, setIncorrectLetters] = useState([]);
   const [currentGuess, setCurrentGuess] = useState('');
   const [showHighscore, setShowHighscore] = useState(false);
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [isGameWon, setIsGameWon] = useState(false);
   const maxWrongGuesses = 6;
+
+  useEffect(() => {
+    const fetchRandomWord = async () => {
+      try {
+        const response = await fetch('http://localhost:4000/random-word');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setWord(data.word);
+      } catch (error) {
+        console.error("Error fetching the word:", error);
+      }
+    };
+
+    fetchRandomWord();
+  }, []);
+
+  useEffect(() => {
+    const gameOver = wrongGuesses >= maxWrongGuesses;
+    const gameWon = word.split('').every(letter => guessedLetters.includes(letter));
+
+    setIsGameOver(gameOver);
+    setIsGameWon(gameWon);
+
+    if (gameWon) {
+      const timeoutId = setTimeout(() => {
+        setShowHighscore(true);
+      }, 2000);
+
+      return () => clearTimeout(timeoutId);
+    }
+
+    if (gameOver) {
+      setShowHighscore(false);
+    }
+  }, [word, guessedLetters, wrongGuesses]);
 
   const handleGuess = (letter) => {
     if (guessedLetters.includes(letter) || incorrectLetters.includes(letter)) return;
@@ -35,12 +75,27 @@ const App = () => {
   };
 
   const handleReset = () => {
-    setWord(getRandomWord());
+    setWord('');
     setGuessedLetters([]);
     setWrongGuesses(0);
     setIncorrectLetters([]);
     setCurrentGuess('');
     setShowHighscore(false);
+    setIsGameOver(false);
+    setIsGameWon(false);
+    const fetchRandomWord = async () => {
+      try {
+        const response = await fetch('http://localhost:4000/random-word');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setWord(data.word);
+      } catch (error) {
+        console.error("Error fetching the word:", error);
+      }
+    };
+    fetchRandomWord();
   };
 
   const handleInputChange = (e) => {
@@ -59,15 +114,6 @@ const App = () => {
       guessedLetters.includes(letter) ? letter : '_'
     )).join(' ');
   };
-
-  const isGameOver = wrongGuesses >= maxWrongGuesses;
-  const isGameWon = word.split('').every(letter => guessedLetters.includes(letter));
-
-  if (isGameWon) {
-    setTimeout(() => {
-      setShowHighscore(true);
-    }, 2000);
-  }
 
   if (showHighscore) {
     return <Highscore onReset={handleReset} />;

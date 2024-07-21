@@ -32,4 +32,25 @@ recordRoutes.route("/session_end").get(async (req, res) => {
 	res.json(resultObj);
 });
 
+recordRoutes.route("/random-word").get(async (req, res) => {
+    try {
+        console.log("Trying to connect to db");
+        let db_connect = dbo.getDb();
+        const collection = db_connect.collection("Words");
+
+        const count = await collection.countDocuments();
+        if (count === 0) {
+            return res.status(404).json({ message: 'No words found' });
+        }
+
+        const randomIndex = Math.floor(Math.random() * count);
+
+        const randomWord = await collection.find().skip(randomIndex).limit(1).toArray();
+        const word = randomWord[0].word.toLowerCase();
+        res.json(word);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 module.exports = recordRoutes;
