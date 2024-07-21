@@ -5,8 +5,6 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 
 dotenv.config({ path : "./config.env"});
-
-app.use(cors());
 app.use(express.json());
 
 const dbo = require("./db/conn");

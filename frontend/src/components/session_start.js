@@ -10,7 +10,7 @@ export default function UserName() {
 		async function run() {
 			console.log("Game has been reset");
 			const response = await fetch(`http://localhost:4000/session_end`, {
-				method: "GET",
+				method: "POST",
 				credentials: "include",
 			});
 		}
