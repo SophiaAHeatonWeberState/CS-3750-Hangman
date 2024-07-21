@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import './styles.css';
 import Highscore from './Highscores';
-import RecordList from "./components/recordList";
+import ScoreList from "./components/recordList";
 
 // import all the sessions we need, using session_set as maybe our start page???
 import Session_Start from "./components/session_start.js";
