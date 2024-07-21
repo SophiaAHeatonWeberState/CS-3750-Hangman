@@ -39,7 +39,7 @@ export default function UserName() {
 			return;
 		}
         // navigate to the game
-		// navigate("");
+		navigate("/hangman");
 	}
 
 	return (
