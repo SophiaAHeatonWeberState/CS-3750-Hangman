@@ -7,10 +7,6 @@ import Highscore from './components/highscore';
 import Highscore from './Highscores';
 import ScoreList from "./components/recordList";
 
-// import all the sessions we need, using session_set as maybe our start page???
-import Session_Start from "./components/session_start.js";
-
-
 // add this to routes when session works
 // <Route path="/" element{<Login/>}/>
 const App = () => {
@@ -18,6 +14,7 @@ const App = () => {
     <Routes>
       <Route path="/game" element={<Hangman />} />
       <Route path="/highscores" element={<Highscore />} />
+      <Route path="/session_start" element={<Login />} />
     </Routes>
   );
 };
