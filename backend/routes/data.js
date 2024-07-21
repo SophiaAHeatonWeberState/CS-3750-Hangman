@@ -26,11 +26,24 @@ recordRoutes.route("/session_start").post(async (req, res) => {
 
 // here is the deletion of the session
 recordRoutes.route("/session_end").get(async (req, res) => {
-	req.session.destroy();
+	//req.session.destroy();
 	let status = "session destroyed";
 	const resultObj = { status: status };
 	res.json(resultObj);
 });
+
+recordRoutes.route("/highscores").get(async (req, res) => {
+    try {
+      let db_connect = dbo.getDb();
+      const collection = db_connect.collection("Highscores");
+        console.log("TRIED TO GET ROUTE");
+      const highscores = await collection.find().sort({ score: -1 }).limit(10).toArray();
+      res.json(highscores);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  });
+  
 
 recordRoutes.route("/random-word").get(async (req, res) => {
     try {
