@@ -38,6 +38,7 @@ const App = () => {
 
   useEffect(() => {
     const gameOver = wrongGuesses >= maxWrongGuesses;
+    console.log(word, "this is the WORRRRRD");
     const gameWon = word.split('').every(letter => guessedLetters.includes(letter));
 
     setIsGameOver(gameOver);
@@ -103,6 +104,7 @@ const App = () => {
   };
 
   const renderWord = () => {
+    console.log("This is the WORRRD", word);
     return word.split('').map((letter, index) => (
       guessedLetters.includes(letter) ? letter : '_'
     )).join(' ');
@@ -112,9 +114,12 @@ const App = () => {
     return <Highscore onReset={handleReset} />;
   }
 
+  const hangman = `/images/hangman-${wrongGuesses}.svg`;
+
   return (
     <div className="App">
       <h1>Hangman Game</h1>
+      <img src={hangman} alt="Hangman image"></img>
       <p>Word: {renderWord()}</p>
       <p>Wrong guesses: {wrongGuesses}</p>
       <p>Incorrect letters: {incorrectLetters.join(', ')}</p>

@@ -56,8 +56,8 @@ recordRoutes.route("/random-word").get(async (req, res) => {
         const randomIndex = Math.floor(Math.random() * count);
 
         const randomWord = await collection.find().skip(randomIndex).limit(1).toArray();
-        const word = randomWord[0].word.toLowerCase();
-        res.json(word);
+        randomWord[0].word = randomWord[0].word.toLowerCase();
+        res.json(randomWord[0]);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
