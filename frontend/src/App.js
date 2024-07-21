@@ -4,6 +4,11 @@ import './styles.css';
 import Login from './components/session_start';
 import Hangman from './components/hangman';
 import Highscore from './components/highscore';
+import Highscore from './Highscores';
+import ScoreList from "./components/recordList";
+
+// import all the sessions we need, using session_set as maybe our start page???
+import Session_Start from "./components/session_start.js";
 
 
 // add this to routes when session works

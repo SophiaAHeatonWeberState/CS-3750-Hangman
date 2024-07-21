@@ -66,4 +66,17 @@ recordRoutes.route("/random-word").get(async (req, res) => {
     }
 });
 
+recordRoutes.route("/highscores").get(async (req, res) => {
+    try {
+        console.log("Trying to connect to db");
+        let db_connect = dbo.getDb();
+        const result = await db_connect.collection("Highscores").find({}).toArray();
+        console.log("got result");
+        res.json(result);
+    }
+    catch (err) {
+        throw err;
+    }
+});
+
 module.exports = recordRoutes;
