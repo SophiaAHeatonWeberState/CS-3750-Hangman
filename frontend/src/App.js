@@ -11,7 +11,7 @@ const App = () => {
     <Routes>
       <Route path="/game" element={<Hangman />} />
       <Route path="/highscores" element={<Highscore />} />
-      <Route path="/session_start" element={<Login />} />
+      <Route path="/" element={<Login />} />
     </Routes>
   );
 };
