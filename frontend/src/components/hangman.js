@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Highscore from './highscore';
-import AddScores from './addHighScores';
+//import AddScores from './addHighScores';
 import "../styles.css"
 
 const Hangman = () => {
@@ -43,24 +43,25 @@ const Hangman = () => {
     setIsGameWon(gameWon);
 
     if (gameWon) {
-      async function addScore() {
-        const editedScore = {
-          numLetters: 50,
-          score: 4,
-          player: "filler"
-        };
-
-        await fetch('http://localhost:4000/highscores/add', {
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(editedScore)
-        })
-        .catch(error => {
-          window.alert(error);
-        });
-      }
+      const addScore = async () => {
+        try {
+          const editedScore = {
+            numLetters: 50,
+            score: 4,
+            player: "filler"
+          };
+          
+          await fetch('http://localhost:4000/highscores/add', {
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(editedScore)
+          });
+        } catch (error) {
+          console.error("Error fetching the word:", error);
+        }
+      };
       addScore();
 
       const timeoutId = setTimeout(() => {
@@ -70,24 +71,25 @@ const Hangman = () => {
     }
 
     if (gameOver) {
-      async function addScore() {
-        var editedScore = {
-          numLetters: 50,
-          score: 4,
-          player: "filler"
-        };
+      const addScore = async () => {
+        try {
+          const editedScore = {
+            numLetters: 50,
+            score: 4,
+            player: "filler"
+          };
 
-        await fetch('http://localhost:4000/highscores/add', {
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(editedScore)
-        })
-        .catch(error => {
-          window.alert(error);
-        });
-      }
+          await fetch('http://localhost:4000/highscores/add', {
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(editedScore)
+          });
+        } catch (error) {
+          console.error("Error fetching the word:", error);
+        }
+      };
       addScore();
       setShowHighscore(false);
     }

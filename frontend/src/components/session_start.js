@@ -9,7 +9,7 @@ export default function UserName() {
 	useEffect(() => {
 		async function run() {
 			console.log("Game has been reset");
-			const response = await fetch(`http://localhost:5000/session_end`, {
+			const response = await fetch(`http://localhost:4000/session_end`, {
 				method: "GET",
 				credentials: "include",
 			});
@@ -21,7 +21,7 @@ export default function UserName() {
 	async function onSubmit(e) {
 		e.preventDefault();
         console.log("before fetch")
-		const response = await fetch(`http://localhost:5000/session_start`, {
+		const response = await fetch(`http://localhost:4000/session_start`, {
 			method: "POST",
 			credentials: "include",
 			headers: {
