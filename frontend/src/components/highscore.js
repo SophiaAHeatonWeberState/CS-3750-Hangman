@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import RecordList from "./recordList";
 import { Route, Routes } from "react-router-dom";
+import ScoreList from "./recordList";
 
 const Highscore = ({ onReset }) => {
   const [highscores, setHighscores] = useState([]);
@@ -8,7 +8,7 @@ const Highscore = ({ onReset }) => {
   useEffect(() => {
     const fetchHighscores = async () => {
       try {
-        const response = await fetch('/Highscores');
+        const response = await fetch('http://localhost:4000/highscores/numLetters');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -27,7 +27,7 @@ const Highscore = ({ onReset }) => {
       <h1>Highscore Screen</h1>
       <p>Congratulations! You've made it to the high score screen.</p>
       <Routes>
-       <Route exact path="/" element={<RecordList />} />
+       <Route exact path="/" element={<ScoreList />} />
      </Routes>
       <button onClick={onReset}>Play Again</button>
     </div>

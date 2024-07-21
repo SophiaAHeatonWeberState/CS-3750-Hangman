@@ -7,6 +7,8 @@ const Highscores = (props) => (
    <td></td>
    <td></td>
    <td>{props.highscore.score}</td>
+   <td></td>
+   <td>{props.highscore.player}</td>
  </tr>
 );
  
@@ -16,7 +18,7 @@ export default function ScoreList() {
  // This method fetches the records from the database.
  useEffect(() => {
    async function getScores() {
-     const response = await fetch('http://localhost:4000/highscores');
+     const response = await fetch('http://localhost:4000/highscores/numLetters');
  
      if (!response.ok) {
        const message = `An error occurred: ${response.statusText}`;
@@ -56,6 +58,8 @@ export default function ScoreList() {
            <th></th>
            <th></th>
            <th>High Score</th>
+           <th></th>
+           <th>Player</th>
          </tr>
        </thead>
        <tbody>{scoreList()}</tbody>
