@@ -16,7 +16,7 @@ export default function ScoreList({givenNumber}) {
  const [highscores, setScores] = useState([]);
  // This method fetches the records from the database.
  useEffect(() => {
-   async function getScores(number) {
+   async function getScores(number=3) {
      const response = await fetch('http://localhost:4000/highscores');
  
      if (!response.ok) {
@@ -28,9 +28,7 @@ export default function ScoreList({givenNumber}) {
      let highscores = await response.json();
      highscores = highscores.filter(function (x) {
       
-      return x.numLetters <= number && x.numLetters >= number &&
-             x.score >= 0 &&
-             x.player;
+      return x.numLetters >= 0;// && x.numLetters >= 0
      });
      setScores(highscores);
    }

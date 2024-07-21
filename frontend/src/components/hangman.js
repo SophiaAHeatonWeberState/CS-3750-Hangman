@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Highscore from './highscore';
+import AddScores from './addHighScores';
 import "../styles.css"
 
 const Hangman = () => {
@@ -42,14 +43,52 @@ const Hangman = () => {
     setIsGameWon(gameWon);
 
     if (gameWon) {
+      async function addScore() {
+        const editedScore = {
+          numLetters: wordLength,
+          score: wrongGuesses,
+          player: "filler"
+        };
+
+        await fetch('http://localhost:4000/highscores/add', {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(editedScore)
+        })
+        .catch(error => {
+          window.alert(error);
+        });
+      }
+      addScore();
+
       const timeoutId = setTimeout(() => {
         setShowHighscore(true);
       }, 2000);
-
       return () => clearTimeout(timeoutId);
     }
 
     if (gameOver) {
+      async function addScore() {
+        var editedScore = {
+          numLetters: wordLength,
+          score: wrongGuesses,
+          player: "filler"
+        };
+
+        await fetch('http://localhost:4000/highscores/add', {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(editedScore)
+        })
+        .catch(error => {
+          window.alert(error);
+        });
+      }
+      addScore();
       setShowHighscore(false);
     }
   }, [word, guessedLetters, wrongGuesses]);
@@ -107,7 +146,7 @@ const Hangman = () => {
   };
 
   if (showHighscore) {
-    return <Highscore givenNumberScore={wordLength} onReset={handleGuess} />;
+    return <Highscore givenNumberScore={wordLength} onReset={handleReset} />;
   }
 
   const hangmanImage = `./images/hangman-${wrongGuesses}.svg`;

@@ -59,12 +59,27 @@ recordRoutes.route("/highscores").get(async (req, res) => {
         let db_connect = dbo.getDb();
         const collection = db_connect.collection("Highscores");
 
-        const highscore = await collection.find({}).toArray();
+        const highscore = await collection.find({}).sort({score:-1}).toArray();
         res.json(highscore);
         console.log("Connected to db");
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 });
+
+recordRoutes.route("/highscores/add").post(function (req, response) {
+    let db_connect = dbo.getDb();
+    let newvalues = {
+      $set: {
+        numLetters: req.body.numLetters,
+        score: req.body.score,
+        player: req.body.player,
+      },
+    };
+    db_connect.collection("Highscores").insert(newvalues, function (err, res) {
+        if (err) throw err;
+        response.json(res);
+      });
+   });
 
 module.exports = recordRoutes;
