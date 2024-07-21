@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import RecordList from "./recordList";
+import { Route, Routes } from "react-router-dom";
 
-const Highscore = () => {
+const Highscore = ({ onReset }) => {
   const [highscores, setHighscores] = useState([]);
 
   useEffect(() => {
@@ -22,12 +24,12 @@ const Highscore = () => {
 
   return (
     <div>
-      <h1>Highscores</h1>
-      <ul>
-        {highscores.map((entry, index) => (
-          <li key={index}>{entry.username}: {entry.score}</li>
-        ))}
-      </ul>
+      <h1>Highscore Screen</h1>
+      <p>Congratulations! You've made it to the high score screen.</p>
+      <Routes>
+       <Route exact path="/" element={<RecordList />} />
+     </Routes>
+      <button onClick={onReset}>Play Again</button>
     </div>
   );
 };

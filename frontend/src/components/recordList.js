@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 const Highscores = (props) => (
  <tr>
    <td>{props.highscore.numLetters}</td>
+   <td></td>
+   <td></td>
    <td>{props.highscore.score}</td>
  </tr>
 );
@@ -38,7 +40,6 @@ export default function ScoreList() {
      return (
        <Highscores
          highscore={highscore}
-         //deleteRecord={() => deleteRecord(highscore._id)}
          key={highscore._id}
        />
      );
@@ -52,6 +53,8 @@ export default function ScoreList() {
        <thead>
          <tr>
            <th>Number of Letters</th>
+           <th></th>
+           <th></th>
            <th>High Score</th>
          </tr>
        </thead>
