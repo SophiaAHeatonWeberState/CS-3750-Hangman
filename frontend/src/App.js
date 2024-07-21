@@ -4,9 +4,15 @@ import './styles.css';
 import Highscore from './Highscores';
 import RecordList from "./components/recordList";
 
-// Import all the sessions we need
-import Session_Set from "./components/session_set.js";
-import Session_Delete from "./components/session_delete.js";
+// import all the sessions we need, using session_set as maybe our start page???
+import Session_Start from "./components/session_start.js";
+
+
+const words = ["react", "hangman", "javascript", "frontend"];
+
+const getRandomWord = () => {
+  return words[Math.floor(Math.random() * words.length)];
+};
 
 const App = () => {
   const [word, setWord] = useState('');
