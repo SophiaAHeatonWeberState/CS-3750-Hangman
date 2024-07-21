@@ -28,7 +28,7 @@ export default function ScoreList({givenNumber}) {
      let highscores = await response.json();
      highscores = highscores.filter(function (x) {
       
-      return x.numLetters >= 0;// && x.numLetters >= 0
+      return x.numLetters >= number && x.numLetters <= number
      });
      setScores(highscores);
    }

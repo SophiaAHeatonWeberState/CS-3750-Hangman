@@ -20,7 +20,7 @@ const Hangman = () => {
   useEffect(() => {
     const fetchRandomWord = async () => {
       try {
-        const response = await fetch('http://localhost:5000/random-word');
+        const response = await fetch('http://localhost:4000/random-word');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -45,8 +45,8 @@ const Hangman = () => {
     if (gameWon) {
       async function addScore() {
         const editedScore = {
-          numLetters: wordLength,
-          score: wrongGuesses,
+          numLetters: 50,
+          score: 4,
           player: "filler"
         };
 
@@ -72,8 +72,8 @@ const Hangman = () => {
     if (gameOver) {
       async function addScore() {
         var editedScore = {
-          numLetters: wordLength,
-          score: wrongGuesses,
+          numLetters: 50,
+          score: 4,
           player: "filler"
         };
 
@@ -114,7 +114,7 @@ const Hangman = () => {
     setIsGameWon(false);
     const fetchRandomWord = async () => {
       try {
-        const response = await fetch('http://localhost:5000/random-word');
+        const response = await fetch('http://localhost:4000/random-word');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -146,7 +146,7 @@ const Hangman = () => {
   };
 
   if (showHighscore) {
-    return <Highscore givenNumberScore={wordLength} onReset={handleReset} />;
+    return <Highscore givenNumLetter={wordLength} onReset={handleReset} />;
   }
 
   const hangmanImage = `./images/hangman-${wrongGuesses}.svg`;

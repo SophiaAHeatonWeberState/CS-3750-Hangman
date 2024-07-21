@@ -46,19 +46,6 @@ recordRoutes.route("/random-word").get(async (req, res) => {
     }
 });
 
-recordRoutes.route("/highscores/numLetters").get(async (req, res) => {
-    try {
-        let db_connect = dbo.getDb();
-        const collection = db_connect.collection("Highscores");
-        const result = await db_connect.collection.find({player: "default12"}).toArray();
-        console.log("got result");
-        res.json(result);
-    }
-    catch (err) {
-        throw err;
-    }
-});
-
 // here is the deletion of the session
 recordRoutes.route("/session_end").get(async (req, res) => {
 	req.session.destroy();
@@ -67,7 +54,7 @@ recordRoutes.route("/session_end").get(async (req, res) => {
 	res.json(resultObj);
 });
 
-/*
+
 recordRoutes.route("/highscores").get(async (req, res) => {
     try {
         let db_connect = dbo.getDb();
@@ -80,18 +67,15 @@ recordRoutes.route("/highscores").get(async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
-*/
 
 recordRoutes.route("/highscores/add").post(function (req, response) {
     let db_connect = dbo.getDb();
     let newvalues = {
-      $set: {
         numLetters: req.body.numLetters,
         score: req.body.score,
-        player: req.body.player,
-      },
+        player: req.body.player
     };
-    db_connect.collection("Highscores").insert(newvalues, function (err, res) {
+    db_connect.collection("Highscores").insertOne(newvalues, function (err, res) {
         if (err) throw err;
         response.json(res);
       });
