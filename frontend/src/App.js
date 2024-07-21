@@ -120,12 +120,12 @@ const App = () => {
     return <Highscore onReset={handleReset} />;
   }
 
-  const hangman = `/images/hangman-${wrongGuesses}.svg`;
+  const hangman = `./images/hangman-${wrongGuesses}.svg`;
 
   return (
     <div className="App">
       <h1>Hangman Game</h1>
-      <img src={hangman} alt="Hangman image"></img>
+      <img src={hangman} alt="Hangman image"/>
       <p>Word: {renderWord()}</p>
       <p>Wrong guesses: {wrongGuesses}</p>
       <p>Incorrect letters: {incorrectLetters.join(', ')}</p>
