@@ -6,14 +6,12 @@ import Hangman from './components/hangman';
 import Highscore from './components/highscore';
 import ScoreList from "./components/recordList";
 
-// add this to routes when session works
-// <Route path="/" element{<Login/>}/>
 const App = () => {
   return (
     <Routes>
       <Route path="/game" element={<Hangman />} />
-      <Route path="/highscores/numLetters" element={<Highscore />} />
-      <Route path="/" element={<Login />} />
+      <Route path="/highscores" element={<Highscore />} />
+      <Route path="/session_start" element={<Login />} />
     </Routes>
   );
 };
