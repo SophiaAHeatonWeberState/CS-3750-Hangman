@@ -26,7 +26,7 @@ recordRoutes.route("/session_start").post(async (req, res) => {
 
 // here is the deletion of the session
 recordRoutes.route("/session_end").get(async (req, res) => {
-	//req.session.destroy();
+	req.session.destroy();
 	let status = "session destroyed";
 	const resultObj = { status: status };
 	res.json(resultObj);
