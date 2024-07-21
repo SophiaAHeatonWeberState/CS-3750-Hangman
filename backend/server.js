@@ -1,11 +1,11 @@
 const express = require('express');
 const app = express();
 const session = require("express-session");
+//const MongoStore = require("connect-mongo");
 const cors = require('cors');
 const dotenv = require('dotenv');
 
 dotenv.config({ path : "./config.env"});
-
 app.use(
   cors({
       origin: "http://localhost:3000",
@@ -16,9 +16,9 @@ app.use(
   })
 );
 
-app.use(express.json());
-
 const dbo = require("./db/conn");
+
+app.use(express.json());
 
 app.use(require("./routes/data"));
 app.use(require("./routes/session"));

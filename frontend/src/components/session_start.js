@@ -9,18 +9,19 @@ export default function UserName() {
 	useEffect(() => {
 		async function run() {
 			console.log("Game has been reset");
-			const response = await fetch(`http://localhost:4000/session_end`, {
-				method: "POST",
+			const response = await fetch(`http://localhost:5000/session_end`, {
+				method: "GET",
 				credentials: "include",
 			});
 		}
 
-		run();
+		//run();
 	}, []);
 
 	async function onSubmit(e) {
 		e.preventDefault();
-		const response = await fetch(`http://localhost:4000/session_start`, {
+        console.log("before fetch")
+		const response = await fetch(`http://localhost:5000/session_start`, {
 			method: "POST",
 			credentials: "include",
 			headers: {
@@ -30,6 +31,7 @@ export default function UserName() {
             name: name,
         }),
 		});
+        console.log("made it past fetch!")
 		if (response.status === 301) {
 			window.alert(await response.json());
 		}
