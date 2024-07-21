@@ -48,19 +48,16 @@ recordRoutes.route("/random-word").get(async (req, res) => {
         let db_connect = dbo.getDb();
         const collection = db_connect.collection("Words");
 
-        // Count the number of documents in the collection
         const count = await collection.countDocuments();
         if (count === 0) {
             return res.status(404).json({ message: 'No words found' });
         }
 
-        // Generate a random index
         const randomIndex = Math.floor(Math.random() * count);
 
-        // Fetch a random document
         const randomWord = await collection.find().skip(randomIndex).limit(1).toArray();
-
-        res.json(randomWord[0]);
+        const word = randomWord[0].word.toLowerCase();
+        res.json(word);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
