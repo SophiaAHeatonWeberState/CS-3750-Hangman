@@ -4,11 +4,8 @@ import './styles.css';
 import Login from './components/session_start';
 import Hangman from './components/hangman';
 import Highscore from './components/highscore';
-//import Highscore from './Highscores';
 import ScoreList from "./components/recordList";
 
-// add this to routes when session works
-// <Route path="/" element{<Login/>}/>
 const App = () => {
   return (
     <Routes>

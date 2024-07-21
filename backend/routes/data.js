@@ -59,7 +59,7 @@ recordRoutes.route("/highscores").get(async (req, res) => {
         let db_connect = dbo.getDb();
         const collection = db_connect.collection("Highscores");
 
-        const highscore = await collection.find({numLetters:4}).limit(1).toArray();
+        const highscore = await collection.find({}).toArray();
         res.json(highscore);
         console.log("Connected to db");
     } catch (err) {

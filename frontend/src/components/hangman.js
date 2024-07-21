@@ -5,6 +5,7 @@ import "../styles.css"
 
 const Hangman = () => {
   const [word, setWord] = useState('');
+  const [wordLength, setWordLength] = useState(0);
   const [guessedLetters, setGuessedLetters] = useState([]);
   const [wrongGuesses, setWrongGuesses] = useState(0);
   const [incorrectLetters, setIncorrectLetters] = useState([]);
@@ -24,6 +25,7 @@ const Hangman = () => {
         }
         const data = await response.json();
         setWord(data.word);
+        setWordLength(data.numLetters);
       } catch (error) {
         console.error("Error fetching the word:", error);
       }
@@ -79,6 +81,7 @@ const Hangman = () => {
         }
         const data = await response.json();
         setWord(data.word);
+        setWordLength(data.numLetters);
       } catch (error) {
         console.error("Error fetching the word:", error);
       }
@@ -104,7 +107,7 @@ const Hangman = () => {
   };
 
   if (showHighscore) {
-    return <Highscore onReset={handleReset} />;
+    return <Highscore givenNumberScore={wordLength} onReset={handleGuess} />;
   }
 
   const hangmanImage = `./images/hangman-${wrongGuesses}.svg`;

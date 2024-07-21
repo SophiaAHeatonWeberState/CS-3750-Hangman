@@ -27,16 +27,16 @@ const port = process.env.PORT;
 
 // once sophie has the mongo side figured out this should work
 
- app.use(session(
-   {
-       secret: 'keyboard cat',
-       saveUninitialized: false, //dont create a session until something is stored
-       resave: false, //dont save session if unmodified
-       store: MongoStore.create({
-           mongoUrl: process.env.ATLAS_URI
-       })
-   }
- ));
+// app.use(session(
+//   {
+//       secret: 'keyboard cat',
+//       saveUninitialized: false, //dont create a session until something is stored
+//       resave: false, //dont save session if unmodified
+//       store: MongoStore.create({
+//           mongoUrl: process.env.ATLAS_URI
+//       })
+//   }
+// ));
 
 // Start the server after database connection
 dbo.connectToServer((err) => {
