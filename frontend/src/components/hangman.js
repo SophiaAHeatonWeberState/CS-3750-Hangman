@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Highscore from './highscore';
-//import AddScores from './addHighScores';
 import "../styles.css"
 
 const Hangman = () => {
@@ -46,8 +45,8 @@ const Hangman = () => {
       const addScore = async () => {
         try {
           const editedScore = {
-            numLetters: 50,
-            score: 4,
+            numLetters: wordLength,
+            score: wrongGuesses,
             player: "filler"
           };
           
@@ -74,8 +73,8 @@ const Hangman = () => {
       const addScore = async () => {
         try {
           const editedScore = {
-            numLetters: 50,
-            score: 4,
+            numLetters: wordLength,
+            score: wrongGuesses,
             player: "filler"
           };
 

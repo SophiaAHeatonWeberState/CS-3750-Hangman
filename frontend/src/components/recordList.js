@@ -27,8 +27,11 @@ export default function ScoreList({givenNumber}) {
      
      let highscores = await response.json();
      highscores = highscores.filter(function (x) {
-      
-      return x.numLetters >= 0;// && x.numLetters <= number
+      return x.numLetters >= number && x.numLetters <= number
+     });
+     highscores = highscores.sort((a,b) => {
+      if (a.score < b.score)
+        return -1
      });
      setScores(highscores);
    }
@@ -40,7 +43,7 @@ export default function ScoreList({givenNumber}) {
  
  // This method will map out the records on the table
  function scoreList() {
-   return highscores.map((highscore) => {
+   return highscores.slice([0], [10]).map((highscore) => {
      return (
        <Highscores
          highscore={highscore}
